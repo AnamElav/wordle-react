@@ -12,25 +12,7 @@ function App() {
 
   const [currentGuess, setCurrentGuess] = useState<string[]>([]);
 
-  // const correctLetters = guessedLetters.filter((letter) =>
-  //   wordToGuess.includes(letter)
-  // );
-
-  // const incorrectLetters = guessedLetters.filter(
-  //   (letter) => !wordToGuess.includes(letter)
-  // );
-
   const [numGuesses, setNumGuesses] = useState(0);
-
-  // const addGuessedLetter = useCallback(
-  //   (letter: string) => {
-  //     if (currentGuess.includes(letter)) {
-  //       return;
-  //     }
-  //     setCurrentGuess((currentLetters) => [...currentLetters, letter]);
-  //   },
-  //   [guessedLetters]
-  // );
 
   console.log(wordToGuess);
   return (
