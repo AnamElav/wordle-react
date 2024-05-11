@@ -1,0 +1,56 @@
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+.board {
+  display: grid;
+  grid-template-rows: repeat(6, 80px);
+  grid-gap: 5px;
+  justify-content: center;
+  align-content: center;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 80px);
+  grid-gap: 5px;
+}
+.square {
+  margin: 1px;
+  border: 3px solid #d3d6da;
+  font-size: 3rem;
+  font-family: monospace;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  width: 50;
+  height: 70px;
+  background: #d3d6da;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.75em;
+  font-family: monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+.btn.right {
+  background: #6aaa64;
+  color: white;
+}
+.btn.wrong {
+  background: #787c7e;
+  color: white;
+}
+.btn.mid {
+  background: #c9b458;
+  color: white;
+}
