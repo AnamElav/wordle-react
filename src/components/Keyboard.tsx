@@ -34,23 +34,26 @@ const KEYS = [
 interface KeyboardProps {
   wordToGuess: string;
   currentGuess: string[];
+  setCurrentGuess: (guess: string[]) => void;
 }
 
-function Keyboard({ wordToGuess, currentGuess }: KeyboardProps) {
+function Keyboard({
+  wordToGuess,
+  currentGuess,
+  setCurrentGuess,
+}: KeyboardProps) {
   const [lockGuess, setLockGuess] = useState(false);
 
   const handleKeyPress = (key: string) => {
     if (!lockGuess && currentGuess.length < 5 && key != "ret" && key != "<=") {
-      currentGuess = [...currentGuess, key];
-      console.log(currentGuess);
-    }
-    if (key == "ret" && currentGuess.length === 5) {
-      console.log("locked in");
-      setLockGuess(true);
+      setCurrentGuess([...currentGuess, key]);
     }
     if (key == "<=" && currentGuess.length > 0) {
-      currentGuess.pop();
-      console.log(currentGuess);
+      setCurrentGuess(currentGuess.slice(0, -1));
+    }
+    if (key == "ret" && currentGuess.length === 5) {
+      setLockGuess(true);
+      console.log("locked in");
     }
   };
 
@@ -64,18 +67,28 @@ function Keyboard({ wordToGuess, currentGuess }: KeyboardProps) {
       }}
     >
       {KEYS.map((key) => {
+        // Check if key is correctly placed
         const isCorrect =
           lockGuess &&
           currentGuess.some(
-            (letter, index) => letter == key && wordToGuess[index] === key
+            (letter, index) => letter === key && wordToGuess[index] === key
           );
+        // Check if key is in the word but misplaced
         const isInWord = lockGuess && wordToGuess.includes(key) && !isCorrect;
+        // Check if key is not in the word
         const isWrong = lockGuess && !wordToGuess.includes(key);
         return (
           <button
-            className={`btn ${isCorrect ? "correct" : ""} ${
-              isInWord ? "inword" : ""
-            } ${isWrong ? "wrong" : ""}`}
+            key={key}
+            className={`btn ${
+              isCorrect
+                ? "correct"
+                : isInWord
+                ? "inword"
+                : isWrong
+                ? "wrong"
+                : ""
+            }`}
             onClick={() => handleKeyPress(key)}
           >
             {key}

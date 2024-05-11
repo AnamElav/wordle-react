@@ -47,7 +47,11 @@ function App() {
       <h1>Wordle</h1>
       <Grid numGuesses={numGuesses} />
       <div style={{ alignSelf: "stretch" }}>
-        <Keyboard wordToGuess={wordToGuess} currentGuess={currentGuess} />
+        <Keyboard
+          wordToGuess={wordToGuess}
+          currentGuess={currentGuess}
+          setCurrentGuess={setCurrentGuess}
+        />
       </div>
     </div>
   );
