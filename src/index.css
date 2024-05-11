@@ -42,15 +42,15 @@ h1 {
   justify-content: center;
   align-items: center;
 }
-.btn.right {
+.btn.correct {
   background: #6aaa64;
+  color: white;
+}
+.btn.inword {
+  background: #c9b458;
   color: white;
 }
 .btn.wrong {
   background: #787c7e;
-  color: white;
-}
-.btn.mid {
-  background: #c9b458;
   color: white;
 }

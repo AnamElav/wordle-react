@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const KEYS = [
   "q",
   "w",
@@ -30,16 +32,28 @@ const KEYS = [
 ];
 
 interface KeyboardProps {
-  correctLetters: string[];
-  incorrectLetters: string[];
-  addGuessedLetter: (letter: string) => void;
+  wordToGuess: string;
+  currentGuess: string[];
 }
 
-function Keyboard({
-  correctLetters,
-  incorrectLetters,
-  addGuessedLetter,
-}: KeyboardProps) {
+function Keyboard({ wordToGuess, currentGuess }: KeyboardProps) {
+  const [lockGuess, setLockGuess] = useState(false);
+
+  const handleKeyPress = (key: string) => {
+    if (!lockGuess && currentGuess.length < 5 && key != "ret" && key != "<=") {
+      currentGuess = [...currentGuess, key];
+      console.log(currentGuess);
+    }
+    if (key == "ret" && currentGuess.length === 5) {
+      console.log("locked in");
+      setLockGuess(true);
+    }
+    if (key == "<=" && currentGuess.length > 0) {
+      currentGuess.pop();
+      console.log(currentGuess);
+    }
+  };
+
   return (
     <div
       style={{
@@ -50,14 +64,19 @@ function Keyboard({
       }}
     >
       {KEYS.map((key) => {
-        const isRight = correctLetters.includes(key);
-        const isWrong = incorrectLetters.includes(key);
+        const isCorrect =
+          lockGuess &&
+          currentGuess.some(
+            (letter, index) => letter == key && wordToGuess[index] === key
+          );
+        const isInWord = lockGuess && wordToGuess.includes(key) && !isCorrect;
+        const isWrong = lockGuess && !wordToGuess.includes(key);
         return (
           <button
-            className={`btn ${isRight ? "right" : ""} ${
-              isWrong ? "wrong" : ""
-            }`}
-            onClick={() => addGuessedLetter(key)}
+            className={`btn ${isCorrect ? "correct" : ""} ${
+              isInWord ? "inword" : ""
+            } ${isWrong ? "wrong" : ""}`}
+            onClick={() => handleKeyPress(key)}
           >
             {key}
           </button>
@@ -68,5 +87,3 @@ function Keyboard({
 }
 
 export default Keyboard;
-
-// <div className="square">{ letter }</div>
